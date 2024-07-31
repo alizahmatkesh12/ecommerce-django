@@ -94,7 +94,8 @@ class UserLoginView(View):
                     return redirect('home:home')
                 messages.error(request, 'phone or password is wrong', 'warning')
             return render(request, self.template_name, {'form':form})   
-    
+
+
 
 # class UserLoginVerifyCodeView(View):
 #     form_class = VerifyCodeForm

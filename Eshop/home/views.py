@@ -4,13 +4,14 @@ from .models import Product, Category
 from . import tasks
 from django.contrib import messages
 from utils import IsAdminUserMixin
+from orders.forms import CartAddForm
 
 
 
 class HomeView(View):
     def get(self, request, category_slug=None):
         products = Product.objects.all()
-        categories = Category.objects.all()
+        categories = Category.objects.filter(is_sub=False)
         if category_slug:
             category = Category.objects.get(slug=category_slug)
             products = products.filter(category=category)
@@ -18,9 +19,11 @@ class HomeView(View):
         
         
 class PostDetailView(View):
+
     def get(self, request, slug):
         product = get_object_or_404(Product, slug=slug)
-        return render(request, 'home/detail.html', {'product': product})
+        form = CartAddForm()
+        return render(request, 'home/detail.html', {'product': product, 'form': form})
     
     
     

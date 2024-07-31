@@ -5,7 +5,18 @@
 {% endblock extra_headers %}
 {% block content %}
     {% for category in categories %}
-    <a href="{{ category.get_absolute_url }}" class="card-title btn btn-info" > {{category.name}} </a>
+    <div class="btn-group">
+        <a href="{{ category.get_absolute_url }}" class="btn btn-danger bg-dark text-light">{{ category.name }}</a>
+        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        {% for sub in category.scategory.all%}
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{{ sub.get_absolute_url }}">{{sub}}</a></li>
+        </ul>
+        {% endfor %}
+      </div>      
+    <a class="card-title btn btn-info" >  </a>
     {% endfor %}
 <div class="container mt-5">
     <div class="row">  <!-- اضافه کردن کلاس row -->

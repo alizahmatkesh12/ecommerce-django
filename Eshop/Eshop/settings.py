@@ -10,14 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
 import os
 
 from dotenv import load_dotenv
 load_dotenv()
 
+from pathlib import Path
 
-# Build paths inside `the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 #    Apps
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
+    'orders.apps.OrdersConfig',
     
     # Third-party apps
     'storages',
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'orders.context_processors.cart',
             ],
         },
     },
@@ -156,13 +158,14 @@ LIARA_BUCKET_NAME = os.getenv("LIARA_BUCKET_NAME")
 LIARA_ACCESS_KEY  = os.getenv("LIARA_ACCESS_KEY")
 LIARA_SECRET_KEY  = os.getenv("LIARA_SECRET_KEY")
 
+
 # S3 Settings Based on AWS (optional)
 
 AWS_ACCESS_KEY_ID       = LIARA_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY   = LIARA_SECRET_KEY
 AWS_STORAGE_BUCKET_NAME = LIARA_BUCKET_NAME
 AWS_S3_ENDPOINT_URL     = LIARA_ENDPOINT
-AWS_S3_REGION_NAME      = 'us-east-1' 
+AWS_S3_REGION_NAME      = 'us-east-1'  
 AWS_S3_FILE_OVERWRITE = False
 AWS_STORAGE_BUCKET_NAME = 'djangoeshop'
 AWS_SERVICE_NAME = 's3'
@@ -180,7 +183,7 @@ STORAGES = {
 
 
 
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_BROKER_URL = 'amqp://'
 CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_ACCEPT_CONTENT = ['json', 'pickle']
 CELERY_TASK_SERIALIZER = 'json'
@@ -190,3 +193,8 @@ CELERY_RESULT_EXPIRES = 3600  # Or timedelta(days=1)
 CELERY_TASK_ALWAYS_EAGER = False
 CELERY_WORKER_PREFETCH_MULTIPLIER = 4
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+
+
+
+
